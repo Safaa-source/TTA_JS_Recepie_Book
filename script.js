@@ -15,3 +15,22 @@ const recipes = [
         steps: "1. Stir-fry vegetables in olive oil. 2. Add garlic and soy sauce. 3. Serve with rice."
     }
 ];
+
+const displayRecipe = () => {
+    const recipeList = document.querySelector("#recipeList");
+    recipeList.innerHTML = "";
+
+    recipes.forEach((recipe) => {
+        const recipeCard = document.createElement("div");
+        recipeCard.classList.add("bg-white", "p-4", "rounded", "shadow", "mb-4");
+
+        recipeCard.innerHTML = `
+        <h2 class="text-lg font-bold">${recipe.title}</h2>
+        <h2 class="text-sm font-semithin text-gray-700"><strong>Ingredients: </strong>${recipe.ingredients}</h2>
+        <h2 class="text-sm font-thin"><strong>Steps: </strong>${recipe.steps}</h2>
+        `;
+        recipeList.appendChild(recipeCard);
+    })
+}
+
+displayRecipe();
