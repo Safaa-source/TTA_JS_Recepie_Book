@@ -33,4 +33,34 @@ const displayRecipe = () => {
     })
 }
 
+const addRecipe = () => {
+    const recipeTitleInput = document.querySelector("#recipeTitle");
+    const recipeIngredientsInput = document.querySelector("#recipeIngredients");
+    const recipeStepsInput = document.querySelector("#recipeSteps");
+
+    const recipeTitle = recipeTitleInput.value.trim();
+    const recipeIngredients = recipeIngredientsInput.value.trim();
+    const recipeSteps = recipeStepsInput.value.trim();
+
+    if (recipeTitle !== "" && recipeIngredients !== "" && recipeSteps !== "") {
+        const newRecipe = {
+            title: recipeTitle,
+            ingredients: recipeIngredients,
+            steps: recipeSteps
+        }
+        recipes.push(newRecipe);
+
+        recipeTitleInput.value = "";
+        recipeIngredientsInput.value = "";
+        recipeStepsInput.value = "";
+
+        displayRecipe();
+    } else{
+        alert("Please fill out all the fields");
+    }
+}
+
+const addRecipeBtn = document.querySelector("#addRecipe");
+addRecipeBtn.addEventListener("click", addRecipe);
+
 displayRecipe();
