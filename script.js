@@ -33,16 +33,14 @@ const displayRecipe = () => {
     })
 }
 
-const addRecipe = () => {
-    const recipeTitleInput = document.querySelector("#recipeTitle");
-    const recipeIngredientsInput = document.querySelector("#recipeIngredients");
-    const recipeStepsInput = document.querySelector("#recipeSteps");
+const addRecipe = (event) => {
+    event.preventDefault();
 
-    const recipeTitle = recipeTitleInput.value.trim();
-    const recipeIngredients = recipeIngredientsInput.value.trim();
-    const recipeSteps = recipeStepsInput.value.trim();
+    const recipeTitle = document.getElementById("recipeTitle").value;
+    const recipeIngredients = document.getElementById("recipeIngredients").value;
+    const recipeSteps = document.getElementById("recipeSteps").value;
 
-    if (recipeTitle !== "" && recipeIngredients !== "" && recipeSteps !== "") {
+    if (recipeTitle.trim() !== "" && recipeIngredients.trim() !== "" && recipeSteps.trim() !== "") {
         const newRecipe = {
             title: recipeTitle,
             ingredients: recipeIngredients,
@@ -50,19 +48,17 @@ const addRecipe = () => {
         }
         recipes.push(newRecipe);
 
-        recipeTitleInput.value = "";
-        recipeIngredientsInput.value = "";
-        recipeStepsInput.value = "";
+        recipeTitle.value = "";
+        recipeIngredients.value = "";
+        recipeSteps.value = "";
 
         displayRecipe();
-    } else{
+    } else {
         alert("Please fill out all the fields");
     }
 }
 
-// const addRecipeBtn = document.querySelector("#addRecipe");
-// addRecipeBtn.addEventListener("click", addRecipe);
-
-document.querySelector("#addRecipe").addEventListener("click", addRecipe);
+const recipeForm = document.getElementById("recipeForm");
+recipeForm.addEventListener("submit", addRecipe);
 
 displayRecipe();

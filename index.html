@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Recipe Book Applicaion</title>
+</head>
+<body class="bg-gray-100">
+    <header class="p-4 bg-blue-500 text-white text-center">
+        <h1 class="text-2xl">Recipe Book</h1>
+    </header>
+    <main class="p-6">
+        <section id="recipeList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        
+        </section>
+        <section class="mt-6">
+            <h2 class="text-xl mb-4">Add A New Recepie</h2>
+            <form id="recipeForm" class="space-y-4">
+                <div>
+                    <label class="block text-lg font-semibold pb-2">Recipe Title</label>
+                    <input type="text" id="recipeTitle" class="border p-2 w-full rounded-lg focus:outline-none" placeholder="Enter recipe title">
+                </div>
+    
+                <div>
+                    <label class="block text-lg font-semibold pb-2">Ingredients</label>
+                    <textarea type="text" id="recipeIngredients" class="border p-2 w-full rounded-lg focus:outline-none" placeholder="Enter recipe ingredients"></textarea>
+                </div>
+    
+                <div>
+                    <label class="block text-lg font-semibold pb-2">Steps</label>
+                    <textarea type="text" id="recipeSteps" class="border p-2 w-full rounded-lg focus:outline-none" placeholder="Enter recipe steps"></textarea>
+                </div>
+    
+                <button type="submit" id="addRecipe" class="bg-green-500 text-white font-thin text-lg px-4 py-2 mt-4 rounded-lg">Add Recipe</button>
+            </form>
+        </section>
+    </main>
+
+    <footer class="p-4 bg-gray-500 text-white text-center">
+        <p>&copy;2024 TTA Recipe Book App</p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html> 
