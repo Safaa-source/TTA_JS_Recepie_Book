@@ -35,6 +35,17 @@ const displayRecipe = () => {
     })
 }
 
+const showError = (elementId, message) => {
+    const errorElement = document.getElementById(elementId);
+    errorElement.innerText = message;
+    errorElement.classList.remove("hidden");
+}
+
+const hideError = (elementId) => {
+    const errorElement = document.getElementById(elementId);
+    errorElement.classList.add("hidden");
+}
+
 const addRecipe = (event) => {
     event.preventDefault();
 
@@ -42,8 +53,19 @@ const addRecipe = (event) => {
     const recipeIngredients = document.getElementById("recipeIngredients").value.trim();
     const recipeSteps = document.getElementById("recipeSteps").value.trim();
 
-    if (recipeTitle !== "" && recipeIngredients !== "" && recipeSteps !== "") {
+    // if (recipeTitle !== "" && recipeIngredients !== "" && recipeSteps !== "") {
+    hideError("titleError");
+    hideError("ingredientsError");
+    hideError("stepsError");
 
+    let isValid = true;
+
+    if (recipeTitle === "") {
+        showError("titleError", "Please enter the recipe title")
+        isValid = false;
+    }
+
+    if (isValid) {
         const isDuplicate = recipes.some((recipe) => recipe.title.toLowerCase === recipeTitle.toLowerCase);
 
         if (isDuplicate) {
@@ -55,16 +77,17 @@ const addRecipe = (event) => {
                 steps: recipeSteps
             }
             recipes.push(newRecipe);
-    
+
             recipeTitle.value = "";
             recipeIngredients.value = "";
             recipeSteps.value = "";
-    
+
             displayRecipe();
         }
-    } else {
-        alert("Please fill out all the fields");
     }
+    // } else {
+    //     alert("Please fill out all the fields");
+    // }
 }
 
 // const recipeForm = document.getElementById("recipeForm");
