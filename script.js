@@ -1,4 +1,4 @@
-const recipes = [
+let recipes = [
     {
         title: "Spaghetti Bolognese",
         ingredients: "Spaghetti, Ground Beef, Tomato Sauce, Garlic, Onions, Olive Oil",
@@ -104,6 +104,7 @@ const addRecipe = (event) => {
             recipeIngredients.value = "";
             recipeSteps.value = "";
 
+            saveRecipeToLocalStorage();
             displayRecipe();
         }
     }
@@ -116,5 +117,7 @@ const addRecipe = (event) => {
 // recipeForm.addEventListener("submit", addRecipe);
 
 document.getElementById("recipeForm").addEventListener("submit", addRecipe);
+
+saveRecipeToLocalStorage();
 
 displayRecipe();
