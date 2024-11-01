@@ -1,26 +1,10 @@
-let recipes = [
-    {
-        title: "Spaghetti Bolognese",
-        ingredients: "Spaghetti, Ground Beef, Tomato Sauce, Garlic, Onions, Olive Oil",
-        steps: "1. Boil pasta. 2. Cook ground beef. 3. Add sauce and garlic. 4. Mix with pasta."
-    },
-    {
-        title: "Chicken Curry",
-        ingredients: "Chicken, Curry Powder, Coconut Milk, Onions, Garlic, Ginger",
-        steps: "1. Cook chicken. 2. Add onions, garlic, ginger. 3. Add coconut milk and curry powder. 4. Simmer."
-    },
-    {
-        title: "Vegetable Stir-fry",
-        ingredients: "Broccoli, Carrots, Bell Peppers, Soy Sauce, Garlic, Olive Oil",
-        steps: "1. Stir-fry vegetables in olive oil. 2. Add garlic and soy sauce. 3. Serve with rice."
-    }
-];
+let recipes = [];
 
 const displayRecipe = () => {
     const recipeList = document.querySelector("#recipeList");
     recipeList.innerHTML = "";
 
-    recipes.forEach((recipe) => {
+    recipes.forEach((recipe, index) => {
         const recipeCard = document.createElement("div");
         recipeCard.classList.add("bg-white", "p-4", "rounded", "shadow", "mb-4");
 
@@ -28,8 +12,8 @@ const displayRecipe = () => {
         <h2 class="text-lg font-bold">${recipe.title}</h2>
         <h2 class="text-sm font-semithin text-gray-700"><strong>Ingredients: </strong>${recipe.ingredients}</h2>
         <h2 class="text-sm font-thin"><strong>Steps: </strong>${recipe.steps}</h2>
-        <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2">Edit</button>
-        <button class="bg-red-500 text-white px-2 py-1 rounded mt-2">Delete</button>
+        <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2" onclick="editRecipe(${index})">Edit</button>
+        <button class="bg-red-500 text-white px-2 py-1 rounded mt-2" onclick="deleteRecipe(${index})">Delete</button>
         `;
         recipeList.appendChild(recipeCard);
     })
@@ -43,7 +27,7 @@ const loadRecipesFromLocalStorage = () => {
     const storedRecipes = localStorage.getItem("recipes");
 
     if (storedRecipes){
-        recipes = JSON.parse(storedRecipes);
+        recipes = JSON.parse(storedRecipes)
     }
 }
 
@@ -88,7 +72,7 @@ const addRecipe = (event) => {
     }
 
     if (isValid) {
-        const isDuplicate = recipes.some((recipe) => recipe.title.toLowerCase === recipeTitle.toLowerCase);
+        const isDuplicate = recipes.some((recipe) => recipe.title.toLowerCase() === recipeTitle.toLowerCase());
 
         if (isDuplicate) {
             alert("Recipe already exists");
@@ -100,24 +84,38 @@ const addRecipe = (event) => {
             }
             recipes.push(newRecipe);
 
-            recipeTitle.value = "";
-            recipeIngredients.value = "";
-            recipeSteps.value = "";
+            document.getElementById("recipeTitle").value = "";
+            document.getElementById("recipeIngredients").value = "";
+            document.getElementById("recipeSteps").value = "";
 
             saveRecipeToLocalStorage();
             displayRecipe();
         }
     }
-    // } else {
-    //     alert("Please fill out all the fields");
-    // }
 }
 
-// const recipeForm = document.getElementById("recipeForm");
-// recipeForm.addEventListener("submit", addRecipe);
+const editRecipe = (index) => {
+    const updatedRecipeTitle = prompt("Enter the new recipe title", recipes[index].title);
+    const updatedRecipeIngredients = prompt("Enter the new recioe ingredients", recipes[index].ingredients);
+    const updatedRecipeSteps = prompt("Enter the new recipe steps", recipes[index].steps);
+
+    if (updatedRecipeTitle && updatedRecipeIngredients && updatedRecipeSteps){
+        recipes[index].title = updatedRecipeTitle;
+        recipes[index].ingredients = updatedRecipeIngredients;
+        recipes[index].steps = updatedRecipeSteps;
+
+        saveRecipeToLocalStorage();
+        displayRecipe();
+    }
+}
+
+const deleteRecipe = (index) => {
+    recipes.splice(index, 1);
+    saveRecipeToLocalStorage();
+    displayRecipe();
+}
 
 document.getElementById("recipeForm").addEventListener("submit", addRecipe);
 
-saveRecipeToLocalStorage();
-
+loadRecipesFromLocalStorage();
 displayRecipe();
