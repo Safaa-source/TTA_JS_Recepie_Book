@@ -142,6 +142,23 @@ const editRecipe = (index) => {
     document.getElementById(`cancelBtn-${index}`).classList.remove("hidden");
 }
 
+const saveRecipe = (index) => {
+    const updatedRecipeTitle = document.getElementById(`titleDisplay-${index}`).value.trim();
+    const updatedRecipeIngredients = document.getElementById(`ingredientsDisplay-${index}`).value.trim();
+    const updatedRecipeSteps = document.getElementById(`stepsDisplay-${index}`).value.trim();
+
+    if (updatedRecipeTitle && updatedRecipeIngredients && updatedRecipeSteps) {
+        recipes[index].title = updatedRecipeTitle;
+        recipes[index].ingredients = updatedRecipeIngredients;
+        recipes[index].steps = updatedRecipeSteps;
+        
+        saveRecipeToLocalStorage();
+        displayRecipe();
+    } else{
+        alert("Please enter all the fields")
+    }
+}
+
 const cancelEdit = (index) => {
     document.getElementById(`titleDisplay-${index}`).classList.remove("hidden");
     document.getElementById(`ingredientsDisplay-${index}`).classList.remove("hidden");
