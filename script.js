@@ -11,11 +11,20 @@ const displayRecipe = () => {
             recipeCard.classList.add("bg-white", "p-4", "rounded", "shadow", "mb-4");
 
             recipeCard.innerHTML = `
-            <h2 class="text-lg font-bold">${recipe.title}</h2>
-            <h2 class="text-sm font-semithin text-gray-700"><strong>Ingredients: </strong>${recipe.ingredients}</h2>
-            <h2 class="text-sm font-thin"><strong>Steps: </strong>${recipe.steps}</h2>
-            <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2" onclick="editRecipe(${index})">Edit</button>
-            <button class="bg-red-500 text-white px-2 py-1 rounded mt-2" onclick="deleteRecipe(${index})">Delete</button>
+            <h2 class="text-lg font-bold" id="titleDisplay-${index}">${recipe.title}</h2>
+            <input type="text" id="titleInput-${index}" class="hidden border p-2 w-full mb-2 rounded-lg" value="${recipe.title}">
+
+            <h2 class="text-sm font-semithin text-gray-700" id="ingredientsDisplay-${index}"><strong>Ingredients: </strong>${recipe.ingredients}</h2>
+            <textarea id="ingredientsInput-${index}" class="hidden border p-2 w-full mb-2 rounded-lg">${recipe.ingredients}</textarea>
+
+            <h2 class="text-sm font-thin" id="stepsDisplay-${index}"><strong>Steps: </strong>${recipe.steps}</h2>
+            <textarea id="stepsInput-${index}" class="hidden border p-2 w-full mb-2 rounded-lg">${recipe.steps}</textarea>
+            
+            <button class="bg-blue-500 text-white px-2 py-1 rounded mt-2" id="editBtn-${index}" onclick="editRecipe(${index})">Edit</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded mt-2" id="deleteBtn-${index}" onclick="deleteRecipe(${index})">Delete</button>
+
+            <button class="bg-green-500 text-white px-2 py-1 rounded mt-2 hidden" id="saveBtn-${index}" onclick="saveRecipe(${index})">Save</button>
+            <button class="bg-gray-500 text-white px-2 py-1 rounded mt-2 hidden" id="cancelBtn-${index}" onclick="cancelEdit(${index})">Cancel</button>
             `;
             recipeList.appendChild(recipeCard);
         })
@@ -102,19 +111,35 @@ const addRecipe = (event) => {
     }
 }
 
+// const editRecipe = (index) => {
+//     const updatedRecipeTitle = prompt("Enter the new recipe title", recipes[index].title);
+//     const updatedRecipeIngredients = prompt("Enter the new recioe ingredients", recipes[index].ingredients);
+//     const updatedRecipeSteps = prompt("Enter the new recipe steps", recipes[index].steps);
+
+//     if (updatedRecipeTitle && updatedRecipeIngredients && updatedRecipeSteps) {
+//         recipes[index].title = updatedRecipeTitle;
+//         recipes[index].ingredients = updatedRecipeIngredients;
+//         recipes[index].steps = updatedRecipeSteps;
+
+//         saveRecipeToLocalStorage();
+//         displayRecipe();
+//     }
+// }
+
 const editRecipe = (index) => {
-    const updatedRecipeTitle = prompt("Enter the new recipe title", recipes[index].title);
-    const updatedRecipeIngredients = prompt("Enter the new recioe ingredients", recipes[index].ingredients);
-    const updatedRecipeSteps = prompt("Enter the new recipe steps", recipes[index].steps);
+    document.getElementById(`titleDisplay-${index}`).classList.add("hidden");
+    document.getElementById(`ingredientsDisplay-${index}`).classList.add("hidden");
+    document.getElementById(`stepsDisplay-${index}`).classList.add("hidden");
 
-    if (updatedRecipeTitle && updatedRecipeIngredients && updatedRecipeSteps) {
-        recipes[index].title = updatedRecipeTitle;
-        recipes[index].ingredients = updatedRecipeIngredients;
-        recipes[index].steps = updatedRecipeSteps;
+    document.getElementById(`editBtn-${index}`).classList.add("hidden");
+    document.getElementById(`deleteBtn-${index}`).classList.add("hidden");
 
-        saveRecipeToLocalStorage();
-        displayRecipe();
-    }
+    document.getElementById(`titleInput-${index}`).classList.remove("hidden");
+    document.getElementById(`ingredientsInput-${index}`).classList.remove("hidden");
+    document.getElementById(`stepsInput-${index}`).classList.remove("hidden");
+
+    document.getElementById(`saveBtn-${index}`).classList.remove("hidden");
+    document.getElementById(`cancelBtn-${index}`).classList.remove("hidden");
 }
 
 const deleteRecipe = (index) => {
