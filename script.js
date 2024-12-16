@@ -142,6 +142,22 @@ const editRecipe = (index) => {
     document.getElementById(`cancelBtn-${index}`).classList.remove("hidden");
 }
 
+const cancelEdit = (index) => {
+    document.getElementById(`titleDisplay-${index}`).classList.remove("hidden");
+    document.getElementById(`ingredientsDisplay-${index}`).classList.remove("hidden");
+    document.getElementById(`stepsDisplay-${index}`).classList.remove("hidden");
+
+    document.getElementById(`editBtn-${index}`).classList.remove("hidden");
+    document.getElementById(`deleteBtn-${index}`).classList.remove("hidden");
+
+    document.getElementById(`titleInput-${index}`).classList.add("hidden");
+    document.getElementById(`ingredientsInput-${index}`).classList.add("hidden");
+    document.getElementById(`stepsInput-${index}`).classList.add("hidden");
+
+    document.getElementById(`saveBtn-${index}`).classList.add("hidden");
+    document.getElementById(`cancelBtn-${index}`).classList.add("hidden");
+}
+
 const deleteRecipe = (index) => {
     recipes.splice(index, 1);
     saveRecipeToLocalStorage();
